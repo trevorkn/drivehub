@@ -1,0 +1,19 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Scroll behavior */
+html {
+    scroll-behavior: smooth;
+}
+
+/* Default (Dark mode) */
+body {
+    @apply text-gray-100 antialiased;
+    background-color: #1f2a44;
+}
+
+/* Light mode */
+ .light-mode {
+    @apply text-gray-900 bg-gray-50;
+ }

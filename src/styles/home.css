@@ -1,0 +1,402 @@
+@import url('https://fonts.googleapis.com/css2?family=Caveat:wght@400;600;700&family=Raleway:wght@300;400;500&display=swap');
+
+/* ── Typography ── */
+.hero-title {
+  font-family: 'Caveat', cursive;
+  letter-spacing: 0.25em;
+  color: #c8d6f0;
+  text-shadow: 0 0 40px rgba(160, 190, 240, 0.18);
+}
+
+.hero-tagline {
+  font-family: 'Caveat', cursive;
+  color: #d0ddf5;
+  letter-spacing: 0.04em;
+  line-height: 1.5;
+}
+
+/* ── Nav Links ── */
+.nav-link {
+  font-family: 'Raleway', sans-serif;
+  font-weight: 400;
+  letter-spacing: 0.12em;
+  color: #c8d6f0;
+  transition: color 0.25s ease, opacity 0.25s ease;
+  text-decoration: none;
+}
+
+.nav-link:hover {
+  color: #ffffff;
+  opacity: 0.85;
+}
+
+/* ── Fade-in on page load ── */
+.fade-start {
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity 0.9s ease, transform 0.9s ease;
+}
+
+.fade-in-title { transition-delay: 0s;    }
+.fade-in-car   { transition-delay: 0.2s;  }
+.fade-in-tag   { transition-delay: 0.45s; }
+
+.loaded .fade-start {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ── Car float animation ── */
+@keyframes float {
+  0%, 100% { transform: translateY(0px);    }
+  50%       { transform: translateY(-10px); }
+}
+
+.car-float {
+  animation: float 6s ease-in-out infinite;
+}
+
+/* ── Glow beneath car ── */
+.car-glow {
+  position: absolute;
+  bottom: -12px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 65%;
+  height: 50px;
+  background: radial-gradient(ellipse at center, rgba(80, 120, 200, 0.28) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+/* ── Subtle noise texture overlay ── */
+.bg-noise::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.035'/%3E%3C/svg%3E");
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* ============================================================
+   HOME CARDS SECTION
+   Prefix: hc-
+   ============================================================ */
+
+/* ── Section wrapper ── */
+.hc-section {
+  position: relative;
+  background: #111827;
+  padding: 64px 24px 80px;
+  overflow: hidden;
+}
+
+/* Subtle grid texture */
+.hc-section::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(255, 255, 255, 0.012) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.012) 1px, transparent 1px);
+  background-size: 48px 48px;
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* Top fade — blends into the hero section above */
+.hc-section::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 60px;
+  background: linear-gradient(to bottom, #0a1024, transparent);
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* ── Section header ── */
+.hc-header {
+  position: relative;
+  z-index: 2;
+  text-align: center;
+  margin-bottom: 40px;
+  animation: hcFadeUp 0.5s ease both;
+}
+
+.hc-eyebrow-row {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 14px;
+}
+
+.hc-eyebrow-line {
+  display: block;
+  width: 28px;
+  height: 1px;
+  background: #f0c060;
+  opacity: 0.55;
+}
+
+.hc-eyebrow-text {
+  font-family: 'DM Mono', 'Courier New', monospace;
+  font-size: 11px;
+  letter-spacing: 0.16em;
+  color: #5a718f;
+  text-transform: uppercase;
+}
+
+.hc-heading {
+  font-size: clamp(26px, 4vw, 38px);
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  line-height: 1.1;
+  color: #f0eee8;
+  margin-bottom: 8px;
+}
+
+.hc-heading-accent {
+  color: #f0c060;
+}
+
+.hc-subheading {
+  font-family: 'DM Mono', 'Courier New', monospace;
+  font-size: 13px;
+  color: #5a718f;
+  letter-spacing: 0.04em;
+}
+
+/* ── 2×2 grid ── */
+.hc-grid {
+  position: relative;
+  z-index: 2;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 16px;
+  width: 100%;
+  max-width: 760px;
+  margin: 0 auto;
+}
+
+/* ── Card base ── */
+.hc-card {
+  display: flex;
+  flex-direction: column;
+  background: #0e1525;
+  border: 1px solid #1a2640;
+  border-radius: 16px;
+  padding: 28px 24px 22px;
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+  text-decoration: none;
+  color: inherit;
+
+  animation: hcFadeUp 0.55s ease both;
+  transition: border-color 0.3s ease, transform 0.25s ease, background 0.3s ease;
+}
+
+/* Radial glow blob — top-right corner */
+.hc-card::before {
+  content: '';
+  position: absolute;
+  top: -40px;
+  right: -40px;
+  width: 140px;
+  height: 140px;
+  border-radius: 50%;
+  background: var(--card-accent, #f0c060);
+  opacity: 0.04;
+  transition: opacity 0.3s, transform 0.4s;
+  pointer-events: none;
+}
+
+.hc-card:hover {
+  border-color: var(--card-accent, #f0c060);
+  background: #111c30;
+  transform: translateY(-3px);
+}
+
+.hc-card:hover::before {
+  opacity: 0.1;
+  transform: scale(1.4);
+}
+
+/* ── Card variants ── */
+.hc-card--sell    { --card-accent: #f0c060; }
+.hc-card--buy     { --card-accent: #4ade80; }
+.hc-card--rentout { --card-accent: #a78bfa; }
+.hc-card--rent    { --card-accent: #34d399; }
+
+/* ── Automotive decoration wrapper ── */
+/* Clipped to the card via card's overflow:hidden */
+.hc-deco-wrap {
+  position: absolute;
+  bottom: -22px;
+  right: -22px;
+  width: 130px;
+  height: 130px;
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* Decoration SVG — ghost appearance, each card variant has its own rotation */
+.hc-deco {
+  display: block;
+  opacity: 0.055;
+  transform-origin: center;
+  transition: opacity 0.4s ease, transform 0.5s ease;
+}
+
+/* Per-variant starting rotation */
+.hc-card--sell    .hc-deco { transform: rotate(-20deg); }
+.hc-card--buy     .hc-deco { transform: rotate(10deg);  }
+.hc-card--rentout .hc-deco { transform: rotate(0deg);   transition: opacity 0.4s ease, transform 0.8s ease; }
+.hc-card--rent    .hc-deco { transform: rotate(-10deg); }
+
+/* On hover — brighter, rotates toward upright, slight scale */
+.hc-card:hover          .hc-deco { opacity: 0.14; }
+.hc-card--sell:hover    .hc-deco { transform: rotate(-5deg)  scale(1.06); }
+.hc-card--buy:hover     .hc-deco { transform: rotate(0deg)   scale(1.04); }
+.hc-card--rentout:hover .hc-deco { transform: rotate(15deg)  scale(1.04); } /* gear spins */
+.hc-card--rent:hover    .hc-deco { transform: rotate(5deg)   scale(1.04); }
+
+/* Ensure card content sits above the decoration */
+.hc-icon-box,
+.hc-card-title,
+.hc-card-desc,
+.hc-card-footer {
+  position: relative;
+  z-index: 1;
+}
+
+/* ── Icon box ── */
+.hc-icon-box {
+  width: 46px;
+  height: 46px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 18px;
+  flex-shrink: 0;
+  border: 1px solid var(--icon-border, #1e2e46);
+  background: var(--icon-bg, #141f32);
+}
+
+.hc-card--sell    .hc-icon-box { --icon-bg: #1f1a0d; --icon-border: #352a14; }
+.hc-card--buy     .hc-icon-box { --icon-bg: #0d1f13; --icon-border: #163322; }
+.hc-card--rentout .hc-icon-box { --icon-bg: #180f2a; --icon-border: #2a1848; }
+.hc-card--rent    .hc-icon-box { --icon-bg: #0a1f19; --icon-border: #123328; }
+
+/* ── Card text ── */
+.hc-card-title {
+  font-size: 20px;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  color: #f0eee8;
+  margin-bottom: 6px;
+}
+
+.hc-card-desc {
+  font-family: 'DM Mono', 'Courier New', monospace;
+  font-size: 12px;
+  color: #5a718f;
+  letter-spacing: 0.05em;
+  margin-bottom: 22px;
+  flex: 1;
+}
+
+/* ── Card footer ── */
+.hc-card-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: auto;
+}
+
+/* ── Stat pill ── */
+.hc-stat-pill {
+  font-family: 'DM Mono', 'Courier New', monospace;
+  font-size: 11px;
+  padding: 5px 11px;
+  border-radius: 99px;
+  border: 1px solid var(--pill-border, rgba(240, 192, 96, 0.25));
+  background: var(--pill-bg,    rgba(240, 192, 96, 0.07));
+  color: var(--pill-color, #f0c060);
+  letter-spacing: 0.04em;
+  white-space: nowrap;
+
+  /* Hidden until Firebase provides data */
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.4s ease;
+}
+
+.hc-stat-pill--visible {
+  opacity: 1;
+  visibility: visible;
+}
+
+.hc-stat-pill--sell    { --pill-color: #f0c060; --pill-bg: rgba(240, 192, 96,  0.07); --pill-border: rgba(240, 192, 96,  0.25); }
+.hc-stat-pill--buy     { --pill-color: #4ade80; --pill-bg: rgba(74,  222, 128, 0.07); --pill-border: rgba(74,  222, 128, 0.25); }
+.hc-stat-pill--rentout { --pill-color: #a78bfa; --pill-bg: rgba(167, 139, 250, 0.07); --pill-border: rgba(167, 139, 250, 0.25); }
+.hc-stat-pill--rent    { --pill-color: #34d399; --pill-bg: rgba(52,  211, 153, 0.07); --pill-border: rgba(52,  211, 153, 0.25); }
+
+/* ── Arrow button ── */
+.hc-arrow-btn {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  border: 1px solid #1a2640;
+  background: transparent;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  transition: background 0.25s ease, border-color 0.25s ease;
+}
+
+.hc-arrow-btn svg path {
+  stroke: #5a718f;
+  transition: stroke 0.25s ease;
+}
+
+.hc-card:hover .hc-arrow-btn {
+  background: var(--card-accent, #f0c060);
+  border-color: var(--card-accent, #f0c060);
+}
+
+.hc-card:hover .hc-arrow-btn svg path {
+  stroke: #080d1a;
+}
+
+/* ── Entrance animation ── */
+@keyframes hcFadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(18px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ── Responsive ── */
+@media (max-width: 520px) {
+  .hc-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .hc-heading {
+    font-size: 24px;
+  }
+
+  .hc-section {
+    padding: 48px 16px 64px;
+  }
+}
